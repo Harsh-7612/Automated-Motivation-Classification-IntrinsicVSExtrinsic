@@ -4,9 +4,8 @@ from transformers import pipeline
 from tqdm import tqdm  
 
 def classify_motivations_on_gpu(csv_file_in, csv_file_out):
-    # =======================================
     # 🔹 1. LOAD AND PREPARE DATA
-    # =======================================
+    
     print("="*80)
     print(f"Reading csv: {csv_file_in}")
     print("="*80)
@@ -46,9 +45,9 @@ def classify_motivations_on_gpu(csv_file_in, csv_file_out):
         print(f"Found {total_items} non-empty motivation strings to classify.")
 
 
-    # =======================================
+   
     # 🔹 2. SETUP GPU AND PIPELINE
-    # =======================================
+  
     print("="*80)
     print("Loading the zero-shot model...")
     print("="*80)
@@ -57,9 +56,9 @@ def classify_motivations_on_gpu(csv_file_in, csv_file_out):
     device_to_use = 0 if torch.cuda.is_available() else -1
 
     if device_to_use == 0:
-        print(f"✅ Success! GPU found: {torch.cuda.get_device_name(0)}")
+        print(f" Success! GPU found: {torch.cuda.get_device_name(0)}")
     else:
-        print("⚠️ WARNING: No GPU found. Running on CPU (this will be very slow).")
+        print(" WARNING: No GPU found. Running on CPU (this will be very slow).")
         print("   If you have an NVIDIA GPU, please check your PyTorch/CUDA install.")
 
     try:
@@ -76,14 +75,14 @@ def classify_motivations_on_gpu(csv_file_in, csv_file_out):
     candidate_labels = ["intrinsic motivation", "extrinsic motivation"]
     hypothesis_template = "This text is about {}."
 
-    # =======================================
+   
     # 🔹 3. RUN CLASSIFICATION (WITH PROGRESS BAR)
-    # =======================================
+    
     
     # We only run classification if there is text to classify
     if total_items > 0:
         print("="*80)
-        print(f"Classifying {total_items} items... 🚀")
+        print(f"Classifying {total_items} items")
         print("="*80)
 
         try:
@@ -111,7 +110,7 @@ def classify_motivations_on_gpu(csv_file_in, csv_file_out):
         except RuntimeError as e:
             if "CUDA out of memory" in str(e):
                 print("\n" + "="*80)
-                print("ERROR: CUDA out of memory. 💥")
+                print("ERROR: CUDA out of memory. ")
                 print("Your 6GB GPU ran out of VRAM. Try a smaller 'batch_size' in the code.")
                 print("Change `batch_size=8` to `batch_size=4` or `batch_size=2` and retry.")
                 print("="*80)
@@ -124,9 +123,8 @@ def classify_motivations_on_gpu(csv_file_in, csv_file_out):
     else:
         print("Skipping classification as no text was found.")
 
-    # =======================================
     # 🔹 4. PROCESS AND SAVE RESULTS
-    # =======================================
+    
     
     # Any row that wasn't classified (i.e., was empty) will have NaN.
     # We fill those with "None" as requested.
@@ -140,13 +138,13 @@ def classify_motivations_on_gpu(csv_file_in, csv_file_out):
     print("....Saving csv....")
     try:
         df.to_csv(csv_file_out, index=False)
-        print(f"✅ Successfully saved results to {csv_file_out}")
+        print(f" Successfully saved results to {csv_file_out}")
     except Exception as e:
         print(f"Error: csv not saved: {e}")
 
-# ==============================================================================
-# 🚀 RUN THE SCRIPT
-# ==============================================================================
+
+#  RUN THE SCRIPT
+
 if __name__ == "__main__":
     # Define your input and output filenames
     INPUT_FILE = "merged_conversations_with_translations.csv"
