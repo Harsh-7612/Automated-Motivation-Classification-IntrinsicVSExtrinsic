@@ -1,4 +1,5 @@
-Summary: 
+## Summary:  
+
 Developed an end-to-end NLP pipeline for classifying motivational statements as Intrinsic or Extrinsic Motivation using a hybrid zero-shot + supervised fine-tuning approach. Leveraged facebook/bart-large-mnli for initial zero-shot labeling, filtered high-confidence predictions (>88%) to construct a reliable training dataset, addressed class imbalance through targeted data augmentation, and fine-tuned DistilBERT (distilbert-base-uncased) for improved classification performance. Built an optional Streamlit-based inference app for interactive real-time prediction and deployment-ready demonstration.
 ----------------------------------------------------------------------------------------------------------------------
 
