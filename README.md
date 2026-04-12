@@ -4,10 +4,17 @@ Developed an end-to-end NLP pipeline for classifying motivational statements as 
 ----------------------------------------------------------------------------------------------------------------------
 
 Detailed:  
-I started by building a zero-shot classification workflow to automatically label motivational text into two classes, using facebook/bart-large-mnli as the base model for initial prediction.
-I created a labeling pipeline for the raw conversation data by extracting the mentor-side motivation text from the conversation columns. In my_script.py, I selected person1_motivation_mentorship when person1_is_mentor was true, otherwise I used person2_motivation_mentorship, then converted the result into a clean text column for classification.
-I ran zero-shot inference on the non-empty motivation texts and used the model’s top label and score to store both the predicted class and confidence back into the dataframe. The script also handled empty inputs, GPU detection, batch processing, and progress tracking with tqdm for efficient execution.
-I filtered the pseudo-labeled data using a confidence threshold so that only higher-confidence predictions were kept for the next stage. The repository README says I kept rows above 88% confidence, and filter.py shows the same idea by reading labelled.csv, filtering confidence > 0.88, and saving the result to pseudo_lbd.csv.
-I addressed class imbalance between intrinsic and extrinsic motivation because the dataset was skewed more toward extrinsic motivation. To reduce that imbalance, I applied data augmentation and produced an expanded training file, which the README refers to as aug.csv.
-I fine-tuned a DistilBERT model on the improved dataset so the final classifier could learn the intrinsic-versus-extrinsic distinction more reliably than the initial zero-shot setup. The README explicitly says I used aug.csv to fine-tune distilbert-base-uncased.
-I packaged the project into a simple Streamlit app for easy use and demonstration. The README notes that app.py was an optional Streamlit interface created for simplicity, which makes the project easier to present and test interactively.
+I started by building a zero-shot classification workflow to automatically label motivational text into two classes, using facebook/bart-large-mnli as the base model for initial prediction.  
+
+I created a labeling pipeline for the raw conversation data by extracting the mentor-side motivation text from the conversation columns. In my_script.py, I selected person1_motivation_mentorship when person1_is_mentor was true, otherwise I used person2_motivation_mentorship, then converted the result into a clean text column for classification.  
+
+I ran zero-shot inference on the non-empty motivation texts and used the model’s top label and score to store both the predicted class and confidence back into the dataframe. The script also handled empty inputs, GPU detection, batch processing, and progress tracking with tqdm for efficient execution.  
+
+I filtered the pseudo-labeled data using a confidence threshold so that only higher-confidence predictions were kept for the next stage. The repository README says I kept rows above 88% confidence, and filter.py shows the same idea by reading labelled.csv, filtering confidence > 0.88, and saving the result to pseudo_lbd.csv.  
+
+I addressed class imbalance between intrinsic and extrinsic motivation because the dataset was skewed more toward extrinsic motivation. To reduce that imbalance, I applied data augmentation and produced an expanded training file, which the README refers to as aug.csv.  
+
+I fine-tuned a DistilBERT model on the improved dataset so the final classifier could learn the intrinsic-versus-extrinsic distinction more reliably than the initial zero-shot setup. The README explicitly says I used aug.csv to fine-tune distilbert-base-uncased.  
+
+I packaged the project into a simple Streamlit app for easy use and demonstration. The README notes that app.py was an optional Streamlit interface created for simplicity, which makes the project easier to present and test interactively.  
+
