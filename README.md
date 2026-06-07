@@ -1,20 +1,42 @@
-## Summary:  
+# Automated Motivation Classification: Intrinsic vs. Extrinsic
 
-Developed an end-to-end NLP pipeline for classifying motivational statements as Intrinsic or Extrinsic Motivation using a hybrid zero-shot + supervised fine-tuning approach. Leveraged facebook/bart-large-mnli for initial zero-shot labeling, filtered high-confidence predictions (>88%) to construct a reliable training dataset, addressed class imbalance through targeted data augmentation, and fine-tuned DistilBERT (distilbert-base-uncased) for improved classification performance. Built an optional Streamlit-based inference app for interactive real-time prediction and deployment-ready demonstration.
-----------------------------------------------------------------------------------------------------------------------
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+![Transformers](https://img.shields.io/badge/HuggingFace-Transformers-F9AB00?style=for-the-badge&logo=huggingface)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
 
-Detailed:  
-I started by building a zero-shot classification workflow to automatically label motivational text into two classes, using facebook/bart-large-mnli as the base model for initial prediction.  
+## 📖 About the Project
 
-I created a labeling pipeline for the raw conversation data by extracting the mentor-side motivation text from the conversation columns. In my_script.py, I selected person1_motivation_mentorship when person1_is_mentor was true, otherwise I used person2_motivation_mentorship, then converted the result into a clean text column for classification.  
+This repository houses an end-to-end Natural Language Processing (NLP) pipeline designed to classify conversational statements into **Intrinsic** or **Extrinsic** motivation. 
 
-I ran zero-shot inference on the non-empty motivation texts and used the model’s top label and score to store both the predicted class and confidence back into the dataframe. The script also handled empty inputs, GPU detection, batch processing, and progress tracking with tqdm for efficient execution.  
+Initially analyzing raw mentorship dialogue, the architecture leverages a hybrid methodology:
+1. **Zero-Shot Pseudo-Labeling:** Utilizes `facebook/bart-large-mnli` to parse mentor-entrepreneur conversations and extract initial classifications.
+2. **Confidence Filtering:** Isolates highly reliable predictions (confidence > 88%) to build a high-quality, auto-generated dataset.
+3. **Data Augmentation:** Rebalances the inherently skewed dataset to prevent bias towards extrinsic motivation.
+4. **Supervised Fine-Tuning:** Fine-tunes `distilbert-base-uncased` on the augmented dataset to produce a fast, robust, and deployment-ready classification model.
 
-I filtered the pseudo-labeled data using a confidence threshold so that only higher-confidence predictions were kept for the next stage. The repository README says I kept rows above 88% confidence, and filter.py shows the same idea by reading labelled.csv, filtering confidence > 0.88, and saving the result to pseudo_lbd.csv.  
+An interactive Streamlit interface is included for real-time inference and demonstration.
 
-I addressed class imbalance between intrinsic and extrinsic motivation because the dataset was skewed more toward extrinsic motivation. To reduce that imbalance, I applied data augmentation and produced an expanded training file, which the README refers to as aug.csv.  
+---
 
-I fine-tuned a DistilBERT model on the improved dataset so the final classifier could learn the intrinsic-versus-extrinsic distinction more reliably than the initial zero-shot setup. The README explicitly says I used aug.csv to fine-tune distilbert-base-uncased.  
+## ⚙️ Prerequisites
 
-I packaged the project into a simple Streamlit app for easy use and demonstration. The README notes that app.py was an optional Streamlit interface created for simplicity, which makes the project easier to present and test interactively.  
+- Python 3.9+
+- GPU recommended for inference and fine-tuning (CUDA/MPS support built-in)
 
+---
+
+## 🚀 Installation & Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/Harsh-7612/Automated-Motivation-Classification-IntrinsicVSExtrinsic.git](https://github.com/Harsh-7612/Automated-Motivation-Classification-IntrinsicVSExtrinsic.git)
+   cd Automated-Motivation-Classification-IntrinsicVSExtrinsic
+
+2. create virtual environment:
+   python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+3. Install dependencies:
+   pip install -r requirements.txt
