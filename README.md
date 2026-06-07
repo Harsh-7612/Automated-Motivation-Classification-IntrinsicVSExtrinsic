@@ -40,3 +40,18 @@ An interactive Streamlit interface is included for real-time inference and demon
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
    pip install -r requirements.txt
+```
+
+🤝 Contributing  
+Contributions are welcome! If you would like to improve this project:  
+
+Fork the Project  
+
+Create your Feature Branch (git checkout -b feature/AmazingFeature)  
+
+Commit your Changes (git commit -m 'Add some AmazingFeature')  
+
+Push to the Branch (git push origin feature/AmazingFeature)  
+
+Open a Pull Request  
+  
