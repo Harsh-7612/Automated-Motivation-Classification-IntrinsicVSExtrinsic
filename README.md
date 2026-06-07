@@ -34,9 +34,9 @@ An interactive Streamlit interface is included for real-time inference and demon
    git clone [https://github.com/Harsh-7612/Automated-Motivation-Classification-IntrinsicVSExtrinsic.git](https://github.com/Harsh-7612/Automated-Motivation-Classification-IntrinsicVSExtrinsic.git)
    cd Automated-Motivation-Classification-IntrinsicVSExtrinsic
 
-2. create virtual environment:
-   python -m venv venv
+2. create virtual environment and setup with dependencies:
+ ```bash
+    python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-3. Install dependencies:
    pip install -r requirements.txt
