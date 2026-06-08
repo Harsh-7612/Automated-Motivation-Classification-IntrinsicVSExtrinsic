@@ -20,6 +20,10 @@ An interactive Streamlit interface is included for real-time inference and demon
 
 ---
 
+## Metrics:  
+<img width="447" height="132" alt="image" src="https://github.com/user-attachments/assets/07725736-733f-4c8c-ba37-1ef8e2fd4f39" />
+
+
 ## ⚙️ Prerequisites
 
 - Python 3.9+
@@ -42,7 +46,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
    pip install -r requirements.txt
 ```
 
-🤝 Contributing  
+## 🤝 Contributing  
 Contributions are welcome! If you would like to improve this project:  
 
 Fork the Project  
@@ -54,4 +58,5 @@ Commit your Changes (git commit -m 'Add some AmazingFeature')
 Push to the Branch (git push origin feature/AmazingFeature)  
 
 Open a Pull Request  
-  
+
+
